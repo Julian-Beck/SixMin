@@ -6,6 +6,10 @@ import { Label } from '@react-navigation/elements';
 const Journal = () => {
     const [gratitudeItems, setGratitudeItems] = useState(['', '', '']);
     const [actionItems, setActionItems] = useState(['']);
+    const [hightlightItems, setHightlightItems] = useState(['']);
+    const [goodDeed, setGoodDeed] = useState('')
+    const [learning, setLearning] = useState('')
+    const [focus, setFocus] = useState('')
 
     const handleInputChangeGrad = (index: number, value: string) => {
         const newGratitudeItems = [...gratitudeItems];
@@ -17,6 +21,12 @@ const Journal = () => {
         const newActionItems = [...actionItems];
         newActionItems[index] = value;
         setActionItems(newActionItems);
+    };
+
+    const handleInputChangeHightlight= (index: number, value: string) => {
+        const newHightlightItems = [...actionItems];
+        newHightlightItems[index] = value;
+        setActionItems(newHightlightItems);
     };
 
     const handleSubmit = async () => {
@@ -34,11 +44,32 @@ const Journal = () => {
         setActionItems([...actionItems, '']);
     };
 
-    const handleBlur = () => {
+    const newHightlight = () => {
+        setHightlightItems([...actionItems, '']);
+    };
+
+    const handleBlurAction = () => {
         if (actionItems.length > 1) {
             setActionItems([...actionItems.filter(it => it != "")])
         }
+        handleBlur();
     }
+
+    const handleBlurHightlight = () => {
+        if (actionItems.length > 1) {
+            setHightlightItems([...hightlightItems.filter(it => it != "")])
+        }
+        handleBlur();
+    }
+
+    const handleBlur = () => {
+        setFocus('');        
+    }
+
+    const handleFocus = (value: string) => {
+        setFocus(value)
+    }
+
 
     const getRandomReinforcement = () => {
         return "You're doing great!";
@@ -46,36 +77,97 @@ const Journal = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>What are you grateful for today?</Text>
-            {gratitudeItems.map((item, index) => (
-                <View key={`grad-${index}`}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={`#${index+1}`}
-                        placeholderTextColor={'white'}
-                        value={item}
-                        onChangeText={(value) => handleInputChangeGrad(index, value)}/>
+            {(focus=='' || focus=='grad') && 
+                <View>
+                    <Text style={styles.title}>What are you grateful for today?</Text>
+                    {gratitudeItems.map((item, index) => (
+                        <View key={`grad-${index}`}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder={`#${index+1}`}
+                                placeholderTextColor={'white'}
+                                value={item}
+                                onFocus={() => {handleFocus("grad")}}
+                                onChangeText={(value) => handleInputChangeGrad(index, value)}/>
+                        </View>
+                    ))}
                 </View>
-            ))}
+            }
+            {(focus=='' || focus=='action') && 
+                <View>
+                    <Text style={styles.title}>What Challanges do you want to tackle today?</Text>
+                    {actionItems.map((item, index) => (
+                        <TextInput
+                            key={`action-${index}`}
+                            style={styles.input}
+                            placeholder={`I want to ..`}
+                            placeholderTextColor={'white'}
+                            value={item}
+                            onFocus={() => {handleFocus("action")}}
+                            onBlur={handleBlurAction}
+                            onChangeText={(value) => handleInputChangeAction(index, value)}/>
+                    ))}
 
-            <Text style={styles.title}>What Challanges do you want to tackle today?</Text>
-            {actionItems.map((item, index) => (
-                <TextInput
-                    key={`action-${index}`}
-                    style={styles.input}
-                    placeholder={`I want to..`}
-                    placeholderTextColor={'white'}
-                    value={item}
-                    onBlur={handleBlur}
-                    onChangeText={(value) => handleInputChangeAction(index, value)}/>
-            ))}
+                
+                    {actionItems.at(actionItems.length-1) != "" && <Button title="add" onPress={newAction}/>}
+                </View>
+            }
             
-            {actionItems.at(actionItems.length-1) != "" && <Button title="add" onPress={newAction}/>}
+            {(focus=='') && 
+                <View>
+                    <Text style={styles.title}>Positive reinforcement</Text>
+                    <Text style={styles.text}>{getRandomReinforcement()}</Text>
+                
+                    <Button title="Ready for the Day!" onPress={handleSubmit} />
+                </View>
+            }
 
-            <Text style={styles.title}>Positive reinforcement</Text>
-            <Text style={styles.text}>{getRandomReinforcement()}</Text>
+            {(focus=='' || focus=='good') && 
+                <View>
+                    <Text style={styles.title}>Good deed of the day</Text>
+                    <TextInput
+                            style={styles.input}
+                            placeholder={`I did ..`}
+                            placeholderTextColor={'white'}
+                            value={goodDeed}
+                            onFocus={() => {handleFocus("good")}}
+                            onBlur={handleBlur}
+                            onChangeText={(value) => setGoodDeed(value)}/>
+                </View>
+            }
 
-            <Button title="Ready for the Day!" onPress={handleSubmit} />
+            {(focus=='' || focus=='learning') && 
+                <View>
+                    <Text style={styles.title}>Learning</Text>
+                    <TextInput
+                            style={styles.input}
+                            placeholder={`I learned ..`}
+                            placeholderTextColor={'white'}
+                            value={learning}
+                            onFocus={() => {handleFocus("learning")}}
+                            onBlur={handleBlur}
+                            onChangeText={(value) => setLearning(value)}/>
+                </View>
+            }
+            {(focus=='' || focus=='highlight') && 
+                <View>
+                    <Text style={styles.title}>Highlights</Text>
+                    {actionItems.map((item, index) => (
+                        <TextInput
+                            key={`action-${index}`}
+                            style={styles.input}
+                            placeholder={`I want to ..`}
+                            placeholderTextColor={'white'}
+                            value={item}
+                            onFocus={() => {handleFocus("hightlight")}}
+                            onBlur={handleBlurHightlight}
+                            onChangeText={(value) => handleInputChangeHightlight(index, value)}/>
+                    ))}
+
+                
+                    {hightlightItems.at(hightlightItems.length-1) != "" && <Button title="add" onPress={newHightlight}/>}
+                </View>
+            }
         </View>
     );
 };
