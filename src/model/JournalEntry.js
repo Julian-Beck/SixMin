@@ -1,12 +1,11 @@
 class JournalEntry {
-    constructor(title, graditute, content, date = new Date().toISOString()) {
-        this.title = title;
-        this.graditute = graditute;
-        this.todo = todo;
-        this.good_deed = good_deed;
+    constructor(id, graditutes, actions, good, learning, highlights, date = new Date().toISOString()) {
+        this.id = id;
+        this.graditutes = graditutes;
+        this.actions = actions;
+        this.good = good;
         this.learning = learning;
-        this. highlights = highlights;
-        this.content = content;
+        this.highlights = highlights;
         this.date = date;
     }
 
@@ -14,3 +13,5 @@ class JournalEntry {
         return { title: this.title, content: this.content, date: this.date };
     }
 }
+
+export default JournalEntry;
