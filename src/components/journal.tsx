@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ActionSheetIOS } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import JournalEntry from '../model/JournalEntry';
 import { HelloWave } from './hello-wave';
 import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
-import JournalEntry from '../model/JournalEntry';
 
 const Journal = () => {
     const [currentEntry, setCurrentEntry] = useState({
