@@ -11,7 +11,7 @@ export default function Index() {
       }}
     >
     <ScrollView>
-      <Text>This is the Profile View</Text>
+      <Text>This is the Gamble View</Text>
     </ScrollView>
     </SafeAreaView>
   );
