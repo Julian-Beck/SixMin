@@ -1,5 +1,5 @@
 import { useThemeColor } from '@/style/color/use-theme-color';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -22,7 +22,7 @@ export type ThemedTextInputProps = TextInputProps & {
   variant?: 'default' | 'title' | 'subtitle';
 };
 
-export function ThemedTextInput({
+export const ThemedTextInput = forwardRef<TextInput, ThemedTextInputProps>(function ThemedTextInput({
   style,
   lightColor,
   darkColor,
@@ -33,7 +33,7 @@ export function ThemedTextInput({
   error,
   variant = 'default',
   ...rest
-}: ThemedTextInputProps) {
+}: ThemedTextInputProps, ref) {
   const [isFocused, setIsFocused] = useState(false);
 
   const textColor = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
@@ -58,6 +58,7 @@ export function ThemedTextInput({
   return (
     <View style={styles.wrapper}>
       <TextInput
+        ref={ref}
         style={[
           styles.base,
           { color: textColor },
@@ -76,7 +77,7 @@ export function ThemedTextInput({
       {error && <Text style={[styles.errorText, { color: errorColor }]}>{error}</Text>}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   wrapper: {
