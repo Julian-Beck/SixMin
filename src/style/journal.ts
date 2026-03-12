@@ -7,7 +7,7 @@ const stylesJournal = StyleSheet.create ({
       alignContent: 'center',
       flexGrow: 1,
       padding: 5,
-      marginBottom: 5,
+      paddingBottom: 10,
    },
    itemJournal:{
       alignSelf: 'center',

@@ -44,7 +44,7 @@ export default function Graditudes({
 
   return (
     <ScrollView style={stylesJournal.itemJournal}>
-      <ThemedText type="default">
+      <ThemedText style={{textAlign:'center'}}type="default">
         {description}
       </ThemedText>
       {elements.map((value, index) => (

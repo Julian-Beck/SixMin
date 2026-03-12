@@ -16,6 +16,7 @@ export default function Journal({ entry, onChangeEntry }: JournalProps) {
   const [learning, setLearning] = useState<string>(entry.learning ?? "");
   const [highlights, setHighlights] = useState<string[]>(entry.highlights ?? [""]);
   const [activeSection, setActiveSection] = useState<string>("");
+  const [lastYPos, setLastYPos] = useState<number>(0);
 
   // Keep local state in sync with prop changes
   useEffect(() => {
@@ -86,7 +87,8 @@ export default function Journal({ entry, onChangeEntry }: JournalProps) {
       <View
           style ={stylesJournal.itemJournal}>
           <Button
-            title= {activeSection=="" ? "Save" : "Close"}
+            title={activeSection=="" ? "Save" : "Close"}
+            color={activeSection=="" ? "green" : "darkred"}
             onPress={() => {
               if (activeSection=="") {
                 onChangeEntry?.({ graditudes, todos, goodDeed, learning, highlights });

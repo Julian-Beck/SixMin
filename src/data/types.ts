@@ -5,3 +5,9 @@ export type JournalEntry = {
   learning: string;
   highlights: string[];
 };
+
+export type TodaysTodo = {
+  date: string;
+  todos: string[];
+  done: string[];
+};
