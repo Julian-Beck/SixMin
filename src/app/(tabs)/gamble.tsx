@@ -1,5 +1,6 @@
 import Casino from "@/components/gamble/Casino";
 import ItemList from "@/components/gamble/ItemList";
+import SlotMachine from "@/components/gamble/SlotMachine";
 import { defaultTodayTodo, loadTodo, saveTodo } from "@/data/storage";
 import { TodaysTodo } from "@/data/types";
 import stylesGamble from "@/style/gamble";
@@ -62,9 +63,7 @@ export default function Index() {
 
         {/* if all todos are done */}
         {todos.length-1 == dones.length && 
-        <Casino
-          count={dones.length}
-        />}
+        <SlotMachine/>}
       </ScrollView>
     </SafeAreaView>
   );
